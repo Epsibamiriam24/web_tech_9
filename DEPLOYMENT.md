@@ -91,7 +91,7 @@ Fill in these fields:
 
 **Build Command**: Copy and paste this exactly:
 ```
-npm install && cd client && npm install --production=false && npm run build && cd ..
+npm install && npm rebuild bcrypt --build-from-source && cd client && npm install --production=false && npm run build && cd ..
 ```
 
 **Start Command**: Copy and paste this exactly:

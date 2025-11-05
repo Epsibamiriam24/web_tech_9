@@ -48,12 +48,12 @@ Make sure you have:
 
 **Build Command** (copy-paste this):
 ```
-npm install && cd client && npm install --production=false && npm run build && cd ..
+npm install && npm rebuild bcrypt --build-from-source && cd client && npm install --production=false && npm run build && cd ..
 ```
 
 **Alternative** (if above fails):
 ```
-npm ci && cd client && npm ci && npm run build && cd ..
+npm ci && npm rebuild bcrypt --build-from-source && cd client && npm ci && npm run build && cd ..
 ```
 
 **Start Command** (copy-paste this):
