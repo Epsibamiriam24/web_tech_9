@@ -36,7 +36,7 @@ git push -u origin main
    - **Region**: Choose closest to you
    - **Branch**: `main`
    - **Runtime**: Node
-   - **Build Command**: `npm install && cd client && npm install && npm run build && cd ..`
+   - **Build Command**: `npm install && cd client && npm install && npx vite build && cd ..`
    - **Start Command**: `npm start`
    - **Plan**: Free
 6. Click **"Advanced"** and add environment variables:

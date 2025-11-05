@@ -91,7 +91,7 @@ Fill in these fields:
 
 **Build Command**: Copy and paste this exactly:
 ```
-npm install && cd client && npm install && npm run build && cd ..
+npm install && cd client && npm install && npx vite build && cd ..
 ```
 
 **Start Command**: Copy and paste this exactly:
@@ -258,7 +258,7 @@ mongodb+srv://Epsiba:Miriam@cluster1.1pgnsxq.mongodb.net/based_resume_screening?
 
 **Build Command:**
 ```
-npm install && cd client && npm install && npm run build && cd ..
+npm install && cd client && npm install && npx vite build && cd ..
 ```
 
 **Start Command:**

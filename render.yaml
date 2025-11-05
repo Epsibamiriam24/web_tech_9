@@ -4,7 +4,7 @@ services:
     name: resume-screening-app
     env: node
     plan: free
-    buildCommand: npm install && cd client && npm install && npm run build && cd ..
+    buildCommand: npm install && cd client && npm install && npx vite build && cd ..
     startCommand: npm start
     envVars:
       - key: NODE_ENV
