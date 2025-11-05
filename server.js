@@ -12,25 +12,37 @@ const Resume = require('./models/Resume');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+const isProduction = process.env.NODE_ENV === 'production';
 
-// Enable CORS for React dev server
-app.use(cors({
-  origin: 'http://localhost:5173',
-  credentials: true
-}));
+// Enable CORS (allow React dev server in development, disable in production)
+if (!isProduction) {
+  app.use(cors({
+    origin: 'http://localhost:5173',
+    credentials: true
+  }));
+}
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 app.use(session({
-  secret: 'replace-with-secure-secret',
+  secret: process.env.SESSION_SECRET || 'replace-with-secure-secret-in-production',
   resave: false,
   saveUninitialized: false,
-  cookie: { maxAge: 24 * 60 * 60 * 1000 }
+  cookie: { 
+    maxAge: 24 * 60 * 60 * 1000,
+    secure: isProduction, // Use secure cookies in production
+    sameSite: isProduction ? 'strict' : 'lax'
+  }
 }));
 
-// Serve static files
+// Serve static files (old public folder for backward compatibility)
 app.use(express.static(path.join(__dirname, 'public')));
+
+// In production, serve React build
+if (isProduction) {
+  app.use(express.static(path.join(__dirname, 'client', 'dist')));
+}
 
 // Register endpoint
 app.post('/api/register', async (req, res) => {
@@ -140,6 +152,13 @@ app.get('/api/resumes', requireAuth, async (req, res) => {
     res.status(500).json({ error: 'Failed to list resumes' });
   }
 });
+
+// In production, serve React app for all non-API routes (SPA fallback)
+if (isProduction) {
+  app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'client', 'dist', 'index.html'));
+  });
+}
 
 // Start server only after DB connection succeeds
 connectDB()

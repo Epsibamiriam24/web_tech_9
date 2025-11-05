@@ -4,7 +4,10 @@
   "description": "Authentication demo for Based Resume Screening Platform (registration + login)",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js"
+    "start": "node server.js",
+    "build": "cd client && npm install && npm run build",
+    "dev:server": "node server.js",
+    "dev:client": "cd client && npm run dev"
   },
   "keywords": [],
   "author": "",
