@@ -48,7 +48,12 @@ Make sure you have:
 
 **Build Command** (copy-paste this):
 ```
-npm install && cd client && npm install && npx vite build && cd ..
+npm install && cd client && npm install --production=false && npm run build && cd ..
+```
+
+**Alternative** (if above fails):
+```
+npm ci && cd client && npm ci && npm run build && cd ..
 ```
 
 **Start Command** (copy-paste this):
