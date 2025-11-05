@@ -1,0 +1,44 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Login — Based Resume Screening Platform</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <main class="container">
+      <h1>Login — Based Resume Screening</h1>
+      <form id="loginForm">
+        <label>Username or Email<input name="usernameOrEmail" required></label>
+        <label>Password<input type="password" name="password" required></label>
+        <div id="error" class="error"></div>
+        <button type="submit">Login</button>
+      </form>
+      <p>No account? <a href="/register.html">Register</a></p>
+    </main>
+
+    <script>
+      const form = document.getElementById('loginForm');
+      const errEl = document.getElementById('error');
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        errEl.textContent = '';
+        const fd = new FormData(form);
+        const payload = Object.fromEntries(fd.entries());
+
+        const res = await fetch('/api/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+        const data = await res.json();
+        if (!res.ok) {
+          errEl.textContent = data.error || 'Login failed';
+          return;
+        }
+        window.location.href = '/dashboard';
+      });
+    </script>
+  </body>
+</html>
